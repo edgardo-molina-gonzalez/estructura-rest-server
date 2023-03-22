@@ -1,0 +1,5 @@
+*instalar cors: 
+npm i cors
+
+*instalar variables de entorno: 
+npm i dotenv

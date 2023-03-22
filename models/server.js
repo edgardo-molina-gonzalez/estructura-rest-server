@@ -1,5 +1,6 @@
 // express se requiere siempre en el modelo
 const express = require('express')
+const cors = require('cors')
  
 class Server{
 
@@ -20,6 +21,8 @@ class Server{
     middlewares(){
         // directorio publico
         this.app.use(express.static('public'))
+
+        this.app.use(cors())
     }
 
 
