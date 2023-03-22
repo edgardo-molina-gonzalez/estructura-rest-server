@@ -9,6 +9,8 @@ class Server{
         this.app = express()
         // variable de entorno de .env
         this.port = process.env.port
+        // ruta principal del modelo usuarios
+        this.usuariosPath = '/api/usuarios'
 
         // middlewares
         this.middlewares()
@@ -21,42 +23,16 @@ class Server{
     middlewares(){
         // directorio publico
         this.app.use(express.static('public'))
-
+        // cors
         this.app.use(cors())
+        // lectura y pareseo del body, la informacion que venga sera en json
+        this.app.use(express.json())
     }
 
 
     rutas(){
-        this.app.get('/api', (req, res) => {
-            res.json({
-                ok: true,
-                msg: 'metodo-get'
-            })
-        })
-        this.app.put('/api', (req, res) => {
-            res.json({
-                ok: true,
-                msg: 'metodo-put'
-            })
-        })
-        this.app.post('/api', (req, res) => {
-            res.status(201).json({
-                ok: true,
-                msg: 'metodo-post'
-            })
-        })
-        this.app.delete('/api', (req, res) => {
-            res.json({
-                ok: true,
-                msg: 'metodo-delete'
-            })
-        })
-        this.app.patch('/api', (req, res) => {
-            res.json({
-                ok: true,
-                msg: 'metodo-patch'
-            })
-        })
+        // aplica un path principal e importa las rutas con require
+        this.app.use(this.usuariosPath, require('../routes/usuarios'))
     }
 
     listen(){
